@@ -233,7 +233,7 @@
             font-size: 0.9rem;
         }
 
-        /* --- NEW: Mobile Responsive Styles --- */
+        /* --- Mobile Responsive Styles --- */
         @media (max-width: 768px) {
             .header {
                 justify-content: center; /* Center the logo */
@@ -264,9 +264,9 @@
                 display: none; /* Hide the "Showreel" text */
             }
 
-            .header-cta .fa-film {
+            .header-cta i { /* Target the icon generally */
                 display: inline; /* Ensure icon is visible */
-                font-size: 1.2rem;
+                font-size: 1.4rem; /* Slightly larger for better touch target */
             }
         }
 
@@ -283,7 +283,7 @@
         </div>
         <nav>
             <a href="#showreel" class="cta-button header-cta">
-                <i class="fa-solid fa-film" style="display: none;"></i>
+                <i class="fa-solid fa-arrow-down" style="display: none;"></i>
                 <span>Showreel</span>
             </a>
         </nav>
@@ -305,6 +305,7 @@ Unser Verfahren ersetzt keine klassischen Dreharbeiten, sondern ergänzt sie. Du
     <div style="height: 100px;"></div>
 
     <section id="showreel" class="showreel-section">
+        <h2>Showreel</h2>
         <div class="video-container">
             <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="objreV4lPA0"></div>
         </div>
