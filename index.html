@@ -203,7 +203,7 @@
             font-weight: 300;
         }
 
-        /* --- NEW: Footer --- */
+        /* --- Footer --- */
         .footer {
             padding: 3rem 2rem;
             background-color: var(--section-dark-bg);
@@ -233,6 +233,44 @@
             font-size: 0.9rem;
         }
 
+        /* --- NEW: Mobile Responsive Styles --- */
+        @media (max-width: 768px) {
+            .header {
+                justify-content: center; /* Center the logo */
+                padding: 15px 20px;
+            }
+
+            .header .logo img {
+                height: 70px; /* Slightly smaller logo on mobile */
+            }
+
+            .header nav {
+                position: absolute;
+                right: 20px; /* Position button to the right */
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .header-cta {
+                padding: 0;
+                width: 50px;  /* Make the button circular */
+                height: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .header-cta span {
+                display: none; /* Hide the "Showreel" text */
+            }
+
+            .header-cta .fa-film {
+                display: inline; /* Ensure icon is visible */
+                font-size: 1.2rem;
+            }
+        }
+
+
     </style>
 </head>
 <body>
@@ -244,7 +282,10 @@
             <a href="#"><img src="LoDi-sigma9logo-v2.jpeg" alt="S9S Logo"></a>
         </div>
         <nav>
-            <a href="#showreel" class="cta-button header-cta">Showreel</a>
+            <a href="#showreel" class="cta-button header-cta">
+                <i class="fa-solid fa-film" style="display: none;"></i>
+                <span>Showreel</span>
+            </a>
         </nav>
     </header>
 
