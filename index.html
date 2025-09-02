@@ -21,7 +21,7 @@
             --button-hover-text: #000000;
             --section-dark-bg: #101214; 
             --section-contrast-bg: #1a1a1a;
-            --brand-green: #404441; /* A nice green for hover states */
+            --brand-green: #1DB954; /* A nice green for hover states */
         }
 
         * {
@@ -31,6 +31,7 @@
         }
 
         body {
+            scroll-behavior: smooth;
             font-family: 'Poppins', sans-serif;
             color: var(--text-color);
             overflow-y: auto; 
@@ -59,7 +60,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 2rem;
+            padding: 12rem 2rem;
             margin-left: auto;
             margin-right: auto;
             max-width: 1080px;
@@ -75,39 +76,78 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 40px;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 100;
+            /* Add a background for readability when scrolling */
+            background-color: rgba(16, 18, 20, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px); /* Safari support */
         }
 
         .logo img {
             height: 90px;
         }
 
-        .header-cta {
+        /* --- Desktop Navigation --- */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
             font-size: 1rem;
-            padding: 0.8rem 2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
         }
 
-        .header-cta i {
+        .nav-links a:hover {
+            color: var(--brand-green);
+        }
+
+        .hamburger-menu {
             display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1001;
         }
-
+        
         /* --- Text Content --- */
         .text-content {
-            max-width: 1080px;
+            max-width: 800px;
         }
 
         .text-content h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-size: clamp(2.025rem, 6.48vw, 3.645rem);
             font-weight: 600;
             line-height: 1.1;
             margin-bottom: 1rem;
             text-shadow: 0 0 20px rgba(0,0,0,0.7);
             animation: fadeIn 1s ease-out 0.5s forwards;
             opacity: 0;
+            text-align: left;
+        }
+        .text-content h2 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 1s ease-out 0.5s forwards;
+            opacity: 0;
+            font-size: 2.1em;
+            padding-bottom: 1rem;
+            text-align: left;
         }
 
         .text-content p {
@@ -118,9 +158,10 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            text-shadow: 0 0 15px rgba(0,0,0,0.7);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
             animation: fadeIn 1s ease-out 0.8s forwards;
             opacity: 0;
+            text-align: left;
         }
 
         /* --- Call to Action Button --- */
@@ -270,15 +311,44 @@
         .contact-section h2 {
             font-size: clamp(2rem, 6vw, 3rem);
             font-weight: 600;
-            margin-bottom: 1rem;
+            margin-bottom: 2.5rem;
         }
 
-        .contact-section p {
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            max-width: 700px;
-            margin: 0 auto 2.5rem auto;
-            line-height: 1.6;
+        .contact-details {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-details h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details .role {
+            font-size: 1.1rem;
             font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .contact-info a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--brand-green);
         }
 
         /* --- Footer --- */
@@ -314,37 +384,42 @@
         /* --- Mobile Responsive Styles --- */
         @media (max-width: 768px) {
             .header {
-                justify-content: center;
+                justify-content: space-between;
                 padding: 15px 20px;
             }
 
             .header .logo img {
                 height: 70px;
             }
-
-            .header nav {
-                position: absolute;
-                right: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-
-            .header-cta {
-                padding: 0;
-                width: 50px;
-                height: 50px;
-                display: flex;
+            
+            /* --- Mobile Navigation Menu --- */
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: rgba(16, 18, 20, 0.98);
+                backdrop-filter: blur(5px);
+                flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                gap: 2.5rem;
+                transform: translateX(100%);
+                transition: transform 0.35s ease-in-out;
+                z-index: 1000;
             }
 
-            .header-cta span {
-                display: none;
+            .nav-links.is-open {
+                transform: translateX(0);
             }
 
-            .header-cta i {
-                display: inline;
-                font-size: 1.4rem;
+            .nav-links a {
+                font-size: 1.8rem;
+            }
+
+            .hamburger-menu {
+                display: block;
             }
 
             .showreel-section {
@@ -362,36 +437,55 @@
             <a href="#"><img src="LoDi-sigma9logo-v2.jpeg" alt="S9S Logo"></a>
         </div>
         <nav>
-            <!-- The showreel button has been moved to be an overlay on the video player -->
+            <ul class="nav-links">
+                <li><a href="#about">Über uns</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+            <button class="hamburger-menu" aria-label="Menü öffnen">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </nav>
     </header>
 
     <section id="showreel" class="showreel-section">
         <div class="video-container">
             <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="AuXp2t_Bj34" data-plyr-poster="thumbnail_overlay.jpg"></div>
-            <a href="#" class="cta-button" id="play-showreel-button">WATCH NOW</a>
+            <a href="#" class="cta-button" id="play-showreel-button">JETZT ANSEHEN</a>
         </div>
     </section>
 
-    <main class="main-content">
+    <main id="about" class="main-content">
         <div class="text-content">
-            <h1>Gemeinsam mehr erreichen.</h1>
+            <h1>Handwerk berührt Vision</h1>
+            <p>
+                Wie Michelangelos Finger, die Funken der Schöpfung entfachen, verbinden wir klassisches Filmhandwerk mit einem eigens entwickelten Produktionsverfahren. Die AI-Technik wird zum unsichtbaren Werkzeug  und eröffnet neue Wege des Erzählens.
+            </p>
+            <h2>Gemeinsam mehr erreichen.</h2>
             <p>
 Unser Verfahren ersetzt keine klassischen Dreharbeiten, sondern ergänzt sie. Durch die Verbindung von Filmhandwerk mit einem eigens entwickelten Produktionsverfahren, unterstützt mit AI-Technologie, entstehen Szenen und Bilderwelten, die mit herkömmlichen Budgets oft unerreichbar wären. So erweitern wir die kreativen Möglichkeiten für Film- und Werbeproduktionen und schaffen neue Chancen für alle Beteiligten – von Filmschaffenden bis hin zu Auftraggebern. Anstatt Arbeitsplätze zu verdrängen, eröffnen wir neue.            </p>
         </div>
-        <a href="mailto:office@sigma9studio.com" class="cta-button">
-            Jetzt Anfragen
-        </a>
     </main>
 
     <div style="height: 100px;"></div>
 
     <section id="contact" class="contact-section">
-        <h2>Starten wir ein Projekt.</h2>
-        <p>
-            Kontaktieren Sie uns für eine unverbindliche Beratung und lassen Sie uns gemeinsam die Zukunft Ihrer Filmproduktion gestalten.
-        </p>
-        <a href="mailto:office@sigma9studio.com" class="cta-button">Kontakt aufnehmen</a>
+        <h2>Kontakt</h2>
+        <div class="contact-details">
+            <h3>Christian Vallant</h3>
+            <p class="role">Projektleitung, Konzeption, Drehbuch und Regie</p>
+             <h3>Benjamin Sernji</h3>
+            <p class="role">Konzeption, AI Content Specialist und AI Solutions Engineer</p>
+            <div class="contact-info">
+                <p>
+                    <i class="fa-solid fa-envelope"></i>
+                    <a href="mailto:office@sigma9studio.com">office@sigma9studio.com</a>
+                </p>
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:+4369915816224">+43 699 158 16 224</a>
+                </p>
+            </div>
+        </div>
     </section>
 
     <footer class="footer">
@@ -429,6 +523,28 @@ Unser Verfahren ersetzt keine klassischen Dreharbeiten, sondern ergänzt sie. Du
       });
       player.on('ended', () => {
         videoContainer.classList.remove('is-playing');
+      });
+
+      // --- Mobile Menu Logic ---
+      const hamburger = document.querySelector('.hamburger-menu');
+      const navMenu = document.querySelector('.nav-links');
+      const navMenuAnchors = navMenu.querySelectorAll('a');
+
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('is-open');
+        const icon = hamburger.querySelector('i');
+        // Toggle icon between bars and xmark
+        icon.className = navMenu.classList.contains('is-open') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+      });
+
+      // Close menu when a link is clicked (for single-page navigation)
+      navMenuAnchors.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navMenu.classList.contains('is-open')) {
+                navMenu.classList.remove('is-open');
+                hamburger.querySelector('i').className = 'fa-solid fa-bars';
+            }
+        });
       });
     </script>
 
