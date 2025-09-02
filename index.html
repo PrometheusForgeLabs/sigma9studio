@@ -59,7 +59,6 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            min-height: calc(100vh - 300px);
             padding: 2rem;
             margin-left: auto;
             margin-right: auto;
@@ -163,11 +162,16 @@
 
         /* --- Showreel Section --- */
         .showreel-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align content to the top */
+            align-items: center;
+            min-height: 100vh;
             text-align: center;
-            padding: 4rem 2rem;
+            padding-top: 130px; /* Add space for the 130px tall header */
             position: relative;
             z-index: 2;
-            background-color: var(--section-dark-bg);
+            background-color: transparent;
         }
         .showreel-section h2 {
             font-size: 2.5rem;
@@ -177,12 +181,21 @@
         }
 
         .video-container {
-            max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
         }
         
         .plyr--video {
             aspect-ratio: 16 / 9;
+        }
+
+        /* Ensure the poster image covers the entire video area */
+        .plyr__poster {
+            background-size: cover;
+        }
+
+        /* Hide the YouTube iframe when the player is stopped to ensure the poster is visible */
+        .plyr--stopped .plyr__video-wrapper iframe {
+            display: none;
         }
 
         /* --- Contact Section --- */
@@ -273,6 +286,10 @@
                 display: inline; /* Ensure icon is visible */
                 font-size: 1.4rem; /* Slightly larger for better touch target */
             }
+
+            .showreel-section {
+                padding-top: 100px; /* Adjust space for 100px mobile header */
+            }
         }
 
 
@@ -294,7 +311,11 @@
         </nav>
     </header>
 
-    <div style="height: 150px;"></div>
+    <section id="showreel" class="showreel-section">
+        <div class="video-container">
+            <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="AuXp2t_Bj34" data-plyr-poster="thumbnail_overlay.jpg"></div>
+        </div>
+    </section>
 
     <main class="main-content">
         <div class="text-content">
@@ -308,15 +329,6 @@ Unser Verfahren ersetzt keine klassischen Dreharbeiten, sondern ergänzt sie. Du
     </main>
 
     <div style="height: 100px;"></div>
-
-    <section id="showreel" class="showreel-section">
-        <h2>Showreel</h2>
-        <div class="video-container">
-            <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="AuXp2t_Bj34"></div>
-        </div>
-    </section>
-
-    <div style="height: 150px; position: relative; z-index: 2; background-color: var(--section-dark-bg);"></div>
 
     <section id="contact" class="contact-section">
         <h2>Starten wir ein Projekt.</h2>
