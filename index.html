@@ -511,6 +511,7 @@ Unser Verfahren ersetzt keine klassischen Dreharbeiten, sondern ergänzt sie. Du
       playButton.addEventListener('click', (e) => {
         e.preventDefault(); // Prevent anchor link from navigating
         player.play();
+        player.fullscreen.enter();
       });
 
       // Toggle a class on the container to show/hide the button
