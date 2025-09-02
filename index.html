@@ -6,7 +6,6 @@
     <title>Sigma 9 Studio</title>
 
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
     <style>
@@ -18,10 +17,11 @@
             --text-color: #ffffff;
             --background-overlay: rgba(0, 0, 0, 0.65);
             --button-border: rgba(255, 255, 255, 0.8);
-            --button-hover-bg: rgba(255, 255, 255, 1);
+            --button-hover-bg: rgb(255, 255, 255);
             --button-hover-text: #000000;
             --section-dark-bg: #101214; 
             --section-contrast-bg: #1a1a1a;
+            --brand-green: #404441; /* A nice green for hover states */
         }
 
         * {
@@ -91,7 +91,6 @@
             padding: 0.8rem 2rem;
         }
 
-        /* ADDED: Hide icon on desktop by default */
         .header-cta i {
             display: none;
         }
@@ -164,15 +163,16 @@
         .showreel-section {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Align content to the top */
+            justify-content: flex-start;
             align-items: center;
             min-height: 100vh;
             text-align: center;
-            padding-top: 130px; /* Add space for the 130px tall header */
+            padding-top: 130px;
             position: relative;
             z-index: 2;
             background-color: transparent;
         }
+        
         .showreel-section h2 {
             font-size: 2.5rem;
             margin-bottom: 2rem;
@@ -182,21 +182,81 @@
 
         .video-container {
             width: 100%;
+            flex-grow: 1;
+            display: flex;
+            position: relative; /* Set as positioning context for the play button */
         }
         
         .plyr--video {
-            aspect-ratio: 16 / 9;
+            width: 100%;
+            height: 100%;
         }
 
-        /* Ensure the poster image covers the entire video area */
+        /* --- Custom Showreel Play Button --- */
+        #play-showreel-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 12; /* Above poster (10) and plyr controls */
+            transition: background-color 0.3s ease-out, color 0.3s ease-out;
+
+            /* Override .cta-button animation and initial state to fix centering/visibility */
+            animation: none;
+            opacity: 1;
+
+            /* Normal State: White background, black text, no border */
+            background-color: var(--button-hover-bg); /* white */
+            color: var(--button-hover-text); /* black */
+            border: none;
+        }
+
+        #play-showreel-button:hover {
+            /* Hover State: Green background, white text, no border */
+            background-color: var(--brand-green);
+            color: var(--text-color); /* white */
+            /* Combine transforms to keep it centered while scaling */
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .video-container.is-playing #play-showreel-button {
+            display: none; /* Hide button when video is playing */
+        }
+
+        /* --- UPDATED VIDEO PLAYER STYLES START HERE --- */
+
+        /* Force the poster to be an absolute overlay */
         .plyr__poster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-size: cover;
+            background-position: center;
+            z-index: 10; /* Increased z-index */
+            transition: opacity 0.3s ease-out; /* Add a fade-out effect */
         }
 
-        /* Hide the YouTube iframe when the player is stopped to ensure the poster is visible */
-        .plyr--stopped .plyr__video-wrapper iframe {
-            display: none;
+        /* Fade the poster out when playing */
+        .plyr--playing .plyr__poster {
+            opacity: 0;
+            pointer-events: none; /* Prevents clicks on the invisible poster */
         }
+
+        /* Hide the YouTube iframe by default */
+        .plyr .plyr__video-wrapper iframe {
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+
+        /* Fade the iframe in when playing */
+        .plyr--playing .plyr__video-wrapper iframe {
+            opacity: 1;
+        }
+        
+        /* --- UPDATED VIDEO PLAYER STYLES END HERE --- */
+
 
         /* --- Contact Section --- */
         .contact-section {
@@ -254,24 +314,24 @@
         /* --- Mobile Responsive Styles --- */
         @media (max-width: 768px) {
             .header {
-                justify-content: center; /* Center the logo */
+                justify-content: center;
                 padding: 15px 20px;
             }
 
             .header .logo img {
-                height: 70px; /* Slightly smaller logo on mobile */
+                height: 70px;
             }
 
             .header nav {
                 position: absolute;
-                right: 20px; /* Position button to the right */
+                right: 20px;
                 top: 50%;
                 transform: translateY(-50%);
             }
 
             .header-cta {
                 padding: 0;
-                width: 50px;  /* Make the button circular */
+                width: 50px;
                 height: 50px;
                 display: flex;
                 justify-content: center;
@@ -279,20 +339,18 @@
             }
 
             .header-cta span {
-                display: none; /* Hide the "Showreel" text */
+                display: none;
             }
 
-            .header-cta i { /* Target the icon generally */
-                display: inline; /* Ensure icon is visible */
-                font-size: 1.4rem; /* Slightly larger for better touch target */
+            .header-cta i {
+                display: inline;
+                font-size: 1.4rem;
             }
 
             .showreel-section {
-                padding-top: 100px; /* Adjust space for 100px mobile header */
+                padding-top: 100px;
             }
         }
-
-
     </style>
 </head>
 <body>
@@ -304,16 +362,14 @@
             <a href="#"><img src="LoDi-sigma9logo-v2.jpeg" alt="S9S Logo"></a>
         </div>
         <nav>
-            <a href="#showreel" class="cta-button header-cta">
-                <i class="fa-solid fa-arrow-down"></i>
-                <span>Showreel</span>
-            </a>
+            <!-- The showreel button has been moved to be an overlay on the video player -->
         </nav>
     </header>
 
     <section id="showreel" class="showreel-section">
         <div class="video-container">
             <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="AuXp2t_Bj34" data-plyr-poster="thumbnail_overlay.jpg"></div>
+            <a href="#" class="cta-button" id="play-showreel-button">WATCH NOW</a>
         </div>
     </section>
 
@@ -352,6 +408,28 @@ Unser Verfahren ersetzt keine klassischen Dreharbeiten, sondern ergänzt sie. Du
     <script>
       // Initialize the new player
       const player = new Plyr('#player');
+
+      // --- Custom play button logic ---
+      const playButton = document.getElementById('play-showreel-button');
+      // The video-container is the direct parent of the button
+      const videoContainer = playButton.parentElement; 
+
+      playButton.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent anchor link from navigating
+        player.play();
+      });
+
+      // Toggle a class on the container to show/hide the button
+      player.on('playing', () => {
+        videoContainer.classList.add('is-playing');
+      });
+
+      player.on('pause', () => {
+        videoContainer.classList.remove('is-playing');
+      });
+      player.on('ended', () => {
+        videoContainer.classList.remove('is-playing');
+      });
     </script>
 
 </body>
