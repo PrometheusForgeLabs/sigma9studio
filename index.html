@@ -284,10 +284,10 @@
             display: none; /* Hide button when video is playing */
         }
 
-        /* --- UPDATED VIDEO PLAYER STYLES START HERE --- */
-
-        /* Force the poster to be an absolute overlay */
-        .plyr__poster {
+        /* --- CUSTOM POSTER OVERLAY STYLES --- */
+        
+        /* Custom poster overlay */
+        .custom-poster {
             position: absolute;
             top: 0;
             left: 0;
@@ -295,14 +295,9 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            z-index: 10; /* Increased z-index */
-            transition: opacity 0.3s ease-out; /* Add a fade-out effect */
-        }
-
-        /* Fade the poster out when playing */
-        .plyr--playing .plyr__poster {
-            opacity: 0;
-            pointer-events: none; /* Prevents clicks on the invisible poster */
+            background-repeat: no-repeat;
+            z-index: 10;
+            transition: opacity 0.3s ease-out;
         }
 
         /* Hide the YouTube iframe by default */
@@ -311,12 +306,16 @@
             transition: opacity 0.3s ease-in;
         }
 
+        /* Hide custom poster when playing */
+        .video-container.is-playing .custom-poster {
+            opacity: 0;
+            pointer-events: none;
+        }
+
         /* Fade the iframe in when playing */
-        .plyr--playing .plyr__video-wrapper iframe {
+        .video-container.is-playing .plyr .plyr__video-wrapper iframe {
             opacity: 1;
         }
-        
-        /* --- UPDATED VIDEO PLAYER STYLES END HERE --- */
 
 
         /* --- Contact Section --- */
@@ -470,7 +469,8 @@
 
     <section id="showreel" class="showreel-section">
         <div class="video-container">
-            <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="d6ZL0tZSQpU" data-plyr-poster="thumbnail_overlay.jpg"></div>
+            <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="d6ZL0tZSQpU"></div>
+            <div class="custom-poster" style="background-image: url('thumbnail_overlay.jpg');"></div>
             <a href="#" class="cta-button" id="play-showreel-button">JETZT ANSEHEN</a>
         </div>
     </section>
