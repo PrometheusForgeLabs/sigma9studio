@@ -58,15 +58,7 @@
             background-color: #000;
         }
 
-        /* --- Background Overlay --- */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--background-overlay);
-        }
+ 
 
         /* --- Main Content Layout --- */
         .main-content {
@@ -81,8 +73,8 @@
             max-width: 1080px;
             position: relative;
             z-index: 2;
-            background-color: black;
-            opacity: 0.8;
+            background-color: rgba(0, 0, 0, 0.35);
+            min-width: 100%;
         }
 
         /* --- Header / Logo --- */
@@ -154,7 +146,7 @@
             text-shadow: 0 0 20px rgba(0,0,0,0.7);
             animation: fadeIn 1s ease-out 0.5s forwards;
             opacity: 0;
-            text-align: left;
+            text-align: center;
         }
         .text-content h2 {
             font-size: clamp(2rem, 6vw, 3rem);
@@ -166,7 +158,7 @@
             opacity: 0;
             font-size: 2.1em;
             padding-bottom: 1rem;
-            text-align: left;
+            text-align: center;
         }
 
         .text-content p {
@@ -180,7 +172,7 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
             animation: fadeIn 1s ease-out 0.8s forwards;
             opacity: 0;
-            text-align: left;
+            text-align: center;
         }
 
         /* --- Call to Action Button --- */
@@ -369,7 +361,30 @@
         .contact-info a:hover {
             color: var(--brand-green);
         }
+.mobile-screen {
+    width: 200px;
+    height: 350px;
+    border-radius: 20px;
+    transform: rotate(5deg); 
+    z-index: 5;
+    
+    /* Re-add the original phone border style */
+    border: 5px solid #333; 
+    
+    /* Re-add the glow */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 0 5px var(--brand-green); 
+    
+    /* CRITICAL: Add padding to simulate the bezel/bezel around the inner screen */
+    padding: 10px 5px; 
+}
 
+/* Add a style for the img inside the mobile-screen */
+.mobile-screen img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px; /* Slight rounding for the video edges */
+    object-fit: cover; /* Ensures the image fills the area without stretching, if needed */
+}
         /* --- Footer --- */
         .footer {
             padding: 3rem 2rem;
@@ -445,11 +460,164 @@
                 padding-top: 100px;
             }
         }
+        /* --- NEW: Services Section Styles --- */
+.services-section {
+    /* Dunkler Hintergrund, passend zum Design */
+    background-color: var(--section-dark-bg); 
+    padding: 6rem 2rem;
+    text-align: center;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.services-section h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.services-section .section-description {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-weight: 300;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.services-grid {
+    /* Responsives Grid für die drei Angebote */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1080px;
+    margin: 0 auto 4rem;
+}
+
+.service-item {
+    background-color: var(--section-contrast-bg); /* Etwas helleres Dunkel für Kontrast */
+    padding: 2rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(29, 185, 84, 0.3); /* Grüner Schimmer-Effekt */
+}
+
+.service-item i {
+    font-size: 3rem;
+    color: var(--brand-green); /* Markenfarbe */
+    margin-bottom: 1rem;
+}
+
+.service-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.service-item p {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+}
+
+/* --- Visual Collage Styles (Stylische Darstellung) --- */
+.visual-collage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding: 3rem 0;
+    margin-bottom: 3rem;
+    flex-wrap: wrap; 
+}
+
+.mobile-screen, .cinema-screen {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Simulate Screen Content */
+    background: linear-gradient(45deg, #1f1f1f, #0a0a0a);
+    /* Schicker Schatten und Rand */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); 
+}
+
+/* Find this block in your CSS */
+.mobile-screen img {
+    /* Set the image to fill 100% of the container's width */
+    width: 100%;
+    /* Set the image to fill 100% of the container's height */
+    height: 100%;
+    
+    /* CRITICAL: This property makes the image cover the area, cutting off any excess */
+    object-fit: cover; 
+    
+    /* CRITICAL: This adjusts where the "cut" happens. You need to adjust the vertical position. */
+    /* Adjust 'top' to move the phone casing up or down until the screen content is visible. */
+    object-position: 50% 50%; 
+    
+    /* Ensure the image is not distorted by any rotation on the parent */
+    transform: scale(1.3); 
+}
+
+.mobile-screen {
+    /* Original styling from your CSS */
+    width: 200px;
+    height: 350px;
+    border-radius: 20px;
+    transform: rotate(5deg); 
+    z-index: 5;
+    border: 5px solid #333; 
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 0 5px var(--brand-green); 
+    
+    /* Add this to allow the image to be cropped by the parent */
+    overflow: hidden; 
+}
+
+.cinema-screen {
+    width: 450px;
+    height: 250px;
+    border-radius: 10px;
+    transform: rotate(-3deg); /* Stilisierte Neigung in Gegenrichtung */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 60px rgba(29, 185, 84, 0.7); /* Starker grüner Glanz, der die Leinwand beleuchtet */
+}
+
+
+
+/* Media Query für Mobile Anpassungen */
+@media (max-width: 768px) {
+    .visual-collage {
+        flex-direction: column;
+        gap: 4rem;
+    }
+    .mobile-screen {
+        transform: rotate(0deg) scale(1.1);
+    }
+    .cinema-screen {
+        transform: rotate(0deg);
+        width: 80%;
+        max-width: 300px;
+        height: 100px;
+    }
+}
     </style>
 </head>
 <body>
 
-    <div class="overlay"></div>
+
 
     <header class="header">
         <div class="logo">
@@ -481,13 +649,43 @@
             <p>
                 Wie Michelangelos Finger, die Funken der Schöpfung entfachen, verbinden wir klassisches Filmhandwerk mit einem eigens entwickelten Produktionsverfahren. Die AI-Technik wird zum unsichtbaren Werkzeug  und eröffnet neue Wege des Erzählens.
             </p>
-            <h2>Gemeinsam mehr erreichen.</h2>
             <p>
 Durch die Verbindung von Filmhandwerk mit einem eigens entwickelten Produktionsverfahren, unterstützt mit AI-Technologie, entstehen Szenen und Bilderwelten, die mit herkömmlichen Budgets oft unerreichbar wären. So erweitern wir die kreativen Möglichkeiten für Film- und Werbeproduktionen und schaffen neue Chancen für alle Beteiligten – von Filmschaffenden bis hin zu Auftraggebern. Anstatt Arbeitsplätze zu verdrängen, eröffnen wir neue.            </p>
+            
         </div>
     </main>
 
-    <div style="height: 100px;"></div>
+<section class="services-section" id="leistungen">
+            <h2>Videolösungen für jeden Kanal</h2>
+            <p class="section-description">Wir produzieren hochkarätige Videoclips, die Ihre Zielgruppe auf jedem Bildschirm erreichen. Kurz, prägnant und maximal wirkungsvoll – perfekt für moderne Werbung.</p>
+            
+            <div class="services-grid">
+                <div class="service-item">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <h3>Social Media Clips</h3>
+                    <p>Kurzvideos unter 30 Sekunden für Instagram, TikTok, Facebook & Co. Hohe Engagement-Raten garantiert.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fa-brands fa-google"></i>
+                    <h3>Google Ads Video</h3>
+                    <p>Performance-optimierte Werbevideos für YouTube, In-Stream und das Google Display Network.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fa-solid fa-person-booth"></i>
+                    <h3>Kinowerbung</h3>
+                    <p>Großes Kino für Ihre Marke – hochauflösende Werbespots für ein immersives Erlebnis.</p>
+                </div>
+            </div>
+
+            <div class="visual-collage">
+                <div class="mobile-screen">
+                    <img src="mobile.png" alt="Social Media Ad">
+                </div>
+                <div class="cinema-screen">
+                    <img src="kinosaal.png" alt="Cinema Ad" style="width: 100%; height: auto;">
+                </div>
+            </div>
+        </section>
 
     <section id="contact" class="contact-section">
         <h2>Kontakt</h2>
