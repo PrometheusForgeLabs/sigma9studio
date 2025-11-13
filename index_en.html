@@ -613,6 +613,60 @@
         height: 100px;
     }
 }
+        /* --- NEW: Example Videos Section --- */
+        .example-videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1080px; /* Match other sections */
+            margin: 4rem auto 0; /* Add some space above */
+            padding: 0 2rem;
+        }
+
+        /* Make video container styles reusable */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-container .plyr,
+        .video-container .custom-poster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Make play button styles reusable */
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 12;
+            transition: background-color 0.3s ease-out, color 0.3s ease-out;
+            animation: none;
+            opacity: 1;
+            background-color: var(--button-hover-bg);
+            color: var(--button-hover-text);
+            border: none;
+        }
+
+        .play-button:hover {
+            background-color: var(--brand-green);
+            color: var(--text-color);
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .video-container.is-playing .play-button {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -637,10 +691,10 @@
     </header>
 
     <section id="showreel" class="showreel-section">
-        <div class="video-container">
-            <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="d6ZL0tZSQpU"></div>
+        <div class="video-container" style="width: 100%; height: 100%; position: absolute; padding-top: 0; border-radius: 0;">
+            <div class="plyr__video-embed" data-plyr-provider="youtube" data-plyr-embed-id="d6ZL0tZSQpU"></div>
             <div class="custom-poster" style="background-image: url('thumbnail_overlay.jpg');"></div>
-            <a href="#" class="cta-button" id="play-showreel-button">WATCH NOW</a>
+            <a href="#" class="cta-button play-button" id="play-showreel-button">WATCH NOW</a>
         </div>
     </section>
 
@@ -722,7 +776,21 @@ as well as for gastronomy businesses and their beverage suppliers.
 <p>
 Through the multiple reuse of the video material, production costs for social media appearances and
 cinema spots can be reduced by up to 50% – while simultaneously increasing reach and brand presence. </p>            
+
+            <div class="example-videos-grid">
+                <div class="video-container">
+                    <div class="plyr__video-embed" data-plyr-provider="youtube" data-plyr-embed-id="kX0YD36gf90"></div>
+                    <!-- <div class="custom-poster" style="background-image: url('thumbnail_overlay.jpg');"></div> -->
+                    <a href="#" class="cta-button play-button">Watch Now</a>
+                </div>
+                <div class="video-container">
+                    <div class="plyr__video-embed" data-plyr-provider="youtube" data-plyr-embed-id="38tbQqp1Fes"></div>
+                    <!-- <div class="custom-poster" style="background-image: url('thumbnail_overlay.jpg');"></div> -->
+                    <a href="#" class="cta-button play-button">Watch Now</a>
+                </div>
+            </div>
     </div>
+
 </section>
 
     <section id="contact" class="contact-section">
@@ -757,30 +825,25 @@ cinema spots can be reduced by up to 50% – while simultaneously increasing rea
 
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
     <script>
-      // Initialize the new player
-      const player = new Plyr('#player');
+      // --- Plyr Player Initialization for all videos ---
+      const players = Plyr.setup('.plyr__video-embed');
 
-      // --- Custom play button logic ---
-      const playButton = document.getElementById('play-showreel-button');
-      // The video-container is the direct parent of the button
-      const videoContainer = playButton.parentElement; 
+      // --- Custom play button logic for each player ---
+      document.querySelectorAll('.video-container').forEach((container, index) => {
+        const playButton = container.querySelector('.play-button');
+        const player = players[index];
 
-      playButton.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent anchor link from navigating
-        player.play();
-        player.fullscreen.enter();
-      });
+        if (playButton && player) {
+          playButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            player.play();
+            player.fullscreen.enter();
+          });
 
-      // Toggle a class on the container to show/hide the button
-      player.on('playing', () => {
-        videoContainer.classList.add('is-playing');
-      });
-
-      player.on('pause', () => {
-        videoContainer.classList.remove('is-playing');
-      });
-      player.on('ended', () => {
-        videoContainer.classList.remove('is-playing');
+          player.on('playing', () => container.classList.add('is-playing'));
+          player.on('pause', () => container.classList.remove('is-playing'));
+          player.on('ended', () => container.classList.remove('is-playing'));
+        }
       });
 
       // --- Mobile Menu Logic ---
