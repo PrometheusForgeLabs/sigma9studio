@@ -45,6 +45,10 @@
             box-sizing: border-box;
         }
 
+        html {
+          overflow-x: hidden;  /* Add to html for better mobile compatibility */
+        }
+
         body {
             scroll-behavior: smooth;
             font-family: 'Poppins', sans-serif;
@@ -434,6 +438,11 @@
           }
           .nav-open-overlay.active { opacity: 1; visibility: visible; }
         
+          /* Prevent body scroll issues (e.g., when menu open) */
+          body.nav-open {
+            overflow: hidden;  /* Disable all scrolling when menu is open */
+          }
+
           /* ---- FULL-WIDTH SECTIONS ---- */
           .main-content,
           .services-section,
@@ -441,6 +450,15 @@
           .footer,
           #package .text-content { padding-left: .5rem !important; padding-right: .5rem !important; }
           .header { padding: 1rem .75rem; }
+
+          /* Reduce paddings on sections for edge-to-edge feel */
+          .services-section,
+          .main-content,
+          #package {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+            overflow-x: hidden;  /* Clip any potential overflow */
+          }
         
           /* ---- VIDEO GRID ---- */
           .example-videos-grid {
@@ -449,6 +467,15 @@
             padding: 0 .5rem;
           }
           .example-videos-grid .video-container { width: 100%; max-width: none; }
+
+          /* Ensure videos and containers don't exceed viewport */
+          .video-container,
+          .plyr__video-embed,
+          .plyr__video-embed iframe {
+            width: 100% !important;
+            max-width: 100% !important;
+            height: auto;  /* Maintain aspect ratio */
+          }
 
             .header .logo img {
                 height: 70px;
@@ -617,12 +644,12 @@
         /* --- NEW: Example Videos Section --- */
         .example-videos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));  /* Smaller min for flexibility */
             gap: 1.5rem;
-            width: 100%;
-            max-width: 1080px; /* Match other sections */
-            margin: 4rem auto 0; /* Add some space above */
             padding: 0 1rem;
+            width: 100%;  /* Ensure it doesn't exceed parent */
+            max-width: 100%;
+            margin: 4rem auto 0;
         }
 
         /* Make video container styles reusable */
@@ -859,6 +886,7 @@ cinema spots can be reduced by up to 50% – while simultaneously increasing rea
       function toggleMenu() {
         navMenu.classList.toggle('is-open');
         navOverlay.classList.toggle('active');
+        document.body.classList.toggle('nav-open');  // Add this line
         const icon = hamburger.querySelector('i');
         // Toggle icon between bars and xmark
         icon.className = navMenu.classList.contains('is-open') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
