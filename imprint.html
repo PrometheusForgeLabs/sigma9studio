@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprint - Sigma 9 Studio</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <style>
+        /* --- Google Font --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        /* --- CSS Reset & Base Styles --- */
+        :root {
+            --text-color: #ffffff;
+            --background-overlay: rgba(0, 0, 0, 0.65);
+            --button-border: rgba(255, 255, 255, 0.8);
+            --button-hover-bg: rgb(255, 255, 255);
+            --button-hover-text: #000000;
+            --section-dark-bg: #101214; 
+            --section-contrast-bg: #1a1a1a;
+            --brand-green: #1DB954; /* A nice green for hover states */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+          overflow-x: hidden;
+        }
+
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+            background: url('bg.png') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            background-color: #000;
+        }
+
+        /* --- Main Content Layout --- */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 9rem 2rem;
+            margin-top: 130px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1080px;
+            position: relative;
+            z-index: 2;
+            background-color: rgba(0, 0, 0, 0.35);
+            min-height: calc(100vh - 300px); /* Adjust to ensure footer is pushed down */
+        }
+
+        /* --- Header / Logo --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(16, 18, 20, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .logo img {
+            height: 90px;
+        }
+
+        /* --- Desktop Navigation --- */
+        .nav-links { list-style: none; display: flex; gap: 2.5rem; }
+        .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 600; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--brand-green); }
+        .lang-switch a { font-size: 0.8rem; }
+        .hamburger-menu { display: none; background: none; border: none; color: var(--text-color); font-size: 1.8rem; cursor: pointer; z-index: 1001; }
+        
+        /* --- Text Content --- */
+        .text-content { max-width: 800px; text-align: left; }
+        .text-content h1 { font-size: clamp(2.025rem, 6.48vw, 3.645rem); font-weight: 600; line-height: 1.1; margin-bottom: 2rem; text-shadow: 0 0 20px rgba(0,0,0,0.7); text-align: center; }
+        .text-content h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; margin-top: 2rem; }
+        .text-content p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 0.5rem; }
+        .text-content a { color: var(--text-color); text-decoration: none; transition: color 0.3s ease; }
+        .text-content a:hover { color: var(--brand-green); }
+
+        /* --- Footer --- */
+        .footer { padding: 3rem 2rem; background-color: var(--section-dark-bg); text-align: center; position: relative; z-index: 2; }
+        .social-icons { margin-bottom: 1.5rem; }
+        .social-icons a { color: var(--text-color); font-size: 1.5rem; margin: 0 1rem; text-decoration: none; transition: color 0.3s ease; }
+        .social-icons a:hover { color: var(--button-border); }
+        .copyright { color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; }
+        .footer-links {
+            margin-bottom: 1rem;
+        }
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin: 0 0.75rem;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover { color: var(--text-color); }
+
+        /* --- Mobile Responsive Styles --- */
+        @media (max-width: 768px) {
+          .hamburger-menu { display: block; }
+          .nav-links { position: fixed; top: 0; right: -100%; height: 100vh; width: 80%; max-width: 300px; background: rgba(16,18,20,0.98); flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 6rem 2rem 2rem; transition: right .35s ease; overflow-y: auto; z-index: 999; }
+          .nav-links.is-open { right: 0; }
+          .nav-links a { font-size: 1.2rem; margin-bottom: 1.5rem; width: 100%; }
+          .nav-open-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; z-index: 998; }
+          .nav-open-overlay.active { opacity: 1; visibility: visible; }
+          body.nav-open { overflow: hidden; }
+          .main-content { padding-left: .5rem !important; padding-right: .5rem !important; }
+          .header { padding: 1rem .75rem; }
+          .header .logo img { height: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Overlay for mobile menu -->
+    <div class="nav-open-overlay"></div>
+
+    <header class="header">
+        <div class="logo">
+            <a href="/"><img src="LoDi-sigma9logo-v2.jpeg" alt="S9S Logo"></a>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/index_en.html#about">About Us</a></li>
+                <li><a href="/index_en.html#package">Packages</a></li>
+                <li><a href="/index_en.html#contact">Contact</a></li>
+                <li class="lang-switch"><a href="/index.html" onclick="sessionStorage.setItem('lang_chosen', 'true')">de</a> | <a href="/index_en.html" onclick="sessionStorage.setItem('lang_chosen', 'true')">en</a></li>
+            </ul>
+            <button class="hamburger-menu" aria-label="Open Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main id="imprint" class="main-content">
+        <div class="text-content">
+            <h1>Imprint</h1>
+            
+            <h2>Service Provider</h2>
+            <p>
+                ARGE Sigma 9<br>
+                Musterweg 9<br>
+                9345 Wolfsberg
+            </p>
+
+            <h2>Contact Information</h2>
+            <p>
+                E-Mail Address: <a href="mailto:office@sigma9.studio">office@sigma9.studio</a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="social-icons">
+            <a href="#" aria-label="X Profile"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="Facebook Profile"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram Profile"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="Github Profile"><i class="fa-brands fa-github"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="imprint.html">Imprint</a> |
+            <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2025 Sigma 9 Studio. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+      // --- Mobile Menu Logic ---
+      const hamburger = document.querySelector('.hamburger-menu');
+      const navMenu = document.querySelector('.nav-links');
+      const navOverlay = document.querySelector('.nav-open-overlay');
+      const navMenuAnchors = navMenu.querySelectorAll('a');
+
+      function toggleMenu() {
+        navMenu.classList.toggle('is-open');
+        navOverlay.classList.toggle('active');
+        document.body.classList.toggle('nav-open');
+        const icon = hamburger.querySelector('i');
+        icon.className = navMenu.classList.contains('is-open') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+      }
+
+      hamburger.addEventListener('click', toggleMenu);
+      navOverlay.addEventListener('click', toggleMenu);
+
+      navMenuAnchors.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navMenu.classList.contains('is-open')) toggleMenu();
+        });
+      });
+    </script>
+
+</body>
+</html>
